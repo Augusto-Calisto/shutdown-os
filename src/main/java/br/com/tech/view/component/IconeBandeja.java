@@ -5,9 +5,11 @@ import static br.com.tech.RodarAplicacao.NOME_DA_APLICACAO_DESKTOP;
 import br.com.tech.view.TelaPrincipal;
 
 import java.awt.AWTException;
+import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,12 +68,10 @@ public class IconeBandeja {
             });
 
             popMenu.add(menuTraySair);
+            
+            Image icone = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/image/icon_tray.png"));
 
-            String path = System.getProperty("user.dir");
-
-            ImageIcon imageIcon = new ImageIcon(path.concat("/resource/icon_tray.png"));
-
-            trayIcon = new TrayIcon(imageIcon.getImage(), NOME_DA_APLICACAO_DESKTOP, popMenu);
+            trayIcon = new TrayIcon(icone, NOME_DA_APLICACAO_DESKTOP, popMenu);
 
             trayIcon.addActionListener(new ActionListener() {
                 @Override
@@ -105,8 +105,6 @@ public class IconeBandeja {
                     tela.setVisible(true);
                 }
             });
-
-            trayIcon.setImageAutoSize(true);
 
             SystemTray tray = SystemTray.getSystemTray();
 
