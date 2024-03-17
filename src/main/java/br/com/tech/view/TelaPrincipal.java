@@ -1,29 +1,26 @@
 package br.com.tech.view;
 
-import br.com.tech.RodarAplicacao;
+import static br.com.tech.RodarAplicacao.NOME_DA_APLICACAO_DESKTOP;
+
 import br.com.tech.model.PromptCommand;
+
+import br.com.tech.view.component.IconeBandeja;
 import br.com.tech.view.component.Tema;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
 
-import java.awt.AWTException;
 import java.awt.Desktop;
-import java.awt.SystemTray;
 import java.awt.TrayIcon;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import java.io.IOException;
+
 import java.net.URI;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
 import java.util.Objects;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -38,34 +35,6 @@ public class TelaPrincipal extends JFrame {
         promptCommand = new PromptCommand();
         
         initComponents();
-        
-        this.addWindowListener(new WindowAdapter() {
-            public void windowClosed(WindowEvent e) {}
-
-            public void windowClosing(WindowEvent e) {
-                SystemTray tray = SystemTray.getSystemTray();
-                
-                //Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon.png"));
-
-                /*String path = System.getProperty("user.dir");
-                
-                ImageIcon imageIcon = new ImageIcon(path.concat("/imagens/icon_tray.png"));
-            
-                TrayIcon trayIcon = new TrayIcon(imageIcon.getImage(), "ShutdownOS");
-
-                trayIcon.setToolTip("System tray icon demo");
-                
-                try {
-                    tray.add(trayIcon);
-                } catch (AWTException ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                trayIcon.displayMessage("Aplicativo minimizado", "Para acompanhar o tempo restante, clique no ícone do sistema na bandeja", TrayIcon.MessageType.INFO);
-                
-                */
-            }
-        });
     }
     
     /**
@@ -98,6 +67,11 @@ public class TelaPrincipal extends JFrame {
         setLocationByPlatform(true);
         setName("Frame Comandos Operacionais"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lblSelecionarOpcao.setText("Selecione uma opção:");
         lblSelecionarOpcao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -247,9 +221,9 @@ public class TelaPrincipal extends JFrame {
                 processoAtivado = true;
                 
             } else {
-                promptCommand.cancelarDesligamento();
+                promptCommand.cancelarProcesso();
                 
-                JOptionPane.showMessageDialog(null, "Processo cancelado", RodarAplicacao.NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Processo cancelado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
 
                 btnAtivar.setText("Ativar");
 
@@ -257,13 +231,13 @@ public class TelaPrincipal extends JFrame {
             }
             
         } catch(IOException ioException) {
-            JOptionPane.showMessageDialog(null, ioException.getMessage(), RodarAplicacao.NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ioException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
         
         } catch(IllegalArgumentException illegalArgumentException) {
-            JOptionPane.showMessageDialog(null, illegalArgumentException.getMessage(), RodarAplicacao.NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, illegalArgumentException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
         
         } catch(NullPointerException nullPointerException) {
-            JOptionPane.showMessageDialog(null, nullPointerException.getMessage(), RodarAplicacao.NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, nullPointerException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
@@ -288,14 +262,22 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_mudarTemaFlatLafDark
 
     private void abrirLinkGithub(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirLinkGithub
-        if(Desktop.isDesktopSupported()) {
-            try {
-                Desktop.getDesktop().browse(URI.create("https://uibakery.io/regex-library/ip-address-regex-java"));
-            } catch(IOException ex) {
-                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            if(Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(URI.create("https://github.com/Augusto-Calisto/shutdown-os"));
             }
+        } catch(IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_abrirLinkGithub
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        IconeBandeja bandeja = IconeBandeja.getSingleton(this);
+        
+        TrayIcon trayIcon = bandeja.getTrayIcon();
+        
+        trayIcon.displayMessage(NOME_DA_APLICACAO_DESKTOP, "Aplicativo minimizado", TrayIcon.MessageType.INFO);
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

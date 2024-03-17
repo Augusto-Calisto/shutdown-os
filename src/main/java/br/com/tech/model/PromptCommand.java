@@ -33,7 +33,7 @@ public class PromptCommand {
         return sistemaOperacional.reiniciar(tempo);
     }
 
-    public long cancelarDesligamento() throws IOException {
+    public long cancelarProcesso() throws IOException {
         return sistemaOperacional.cancelar();
     }
 
