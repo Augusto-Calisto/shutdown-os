@@ -6,7 +6,7 @@
     
     <artifactId>shutdown-os</artifactId>
     
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     
     <packaging>jar</packaging>
     
@@ -46,6 +46,42 @@
                         </resource>
                     </resources>
                 </configuration>
+            </plugin>
+            
+            <!-- Construindo um JAR executável --> 
+            <plugin>   
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-jar-plugin</artifactId>  
+                <version>3.1.0</version>  
+                <configuration>
+                    <finalName>ShutdownOS</finalName>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix> <!-- No classpathPrefix especifica que todas as dependências devem estar localizadas na pasta "lib" relativa ao arquivo -->
+                            <mainClass>br.com.tech.RodarAplicacao</mainClass> <!-- Esse problema (Unable to execute jar- file: "no main manifest attribute.") pode ocorrer devido à entrada ausente de Main-Class no arquivo MANIFEST.MF -->
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal> <!-- Copiando as dependencias para pasta 'lib' e add no classpathPrefix para evitar o erro 'Maven: NoClassDefFoundError no thread principal' -->
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
