@@ -3,7 +3,6 @@ package br.com.tech.view;
 import static br.com.tech.RodarAplicacao.NOME_DA_APLICACAO_DESKTOP;
 
 import br.com.tech.model.PromptCommand;
-
 import br.com.tech.view.component.IconeBandeja;
 import br.com.tech.view.component.Tema;
 
@@ -23,6 +22,9 @@ import java.util.Objects;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class TelaPrincipal extends JFrame {
     private PromptCommand promptCommand;
@@ -200,7 +202,7 @@ public class TelaPrincipal extends JFrame {
 
                 LocalDateTime dataHoraEvento = dateTimePicker.getDateTimeStrict();
                 
-                Objects.requireNonNull(dataHoraEvento, "Verifique se você selecionou a data/hora!!!");
+                Objects.requireNonNull(dataHoraEvento, "Verifique se você selecionou a data e/ou hora!!!");
 
                 long diferencaEmSegundos = ChronoUnit.SECONDS.between(dataHoraAtual, dataHoraEvento);
             
@@ -215,9 +217,15 @@ public class TelaPrincipal extends JFrame {
                 if("HIBERNAR".equalsIgnoreCase(opcao)) {
                     promptCommand.hibernarComputador(diferencaEmSegundos);
                 }
-                                
+                
+                JOptionPane.showMessageDialog(null, "O processo de " + opcao.toUpperCase() + " foi ativado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
+              
                 btnAtivar.setText("Cancelar");
                 
+                comboBoxOpcao.setEnabled(false);
+                
+                dateTimePicker.setEnabled(false);
+
                 processoAtivado = true;
                 
             } else {
@@ -226,7 +234,11 @@ public class TelaPrincipal extends JFrame {
                 JOptionPane.showMessageDialog(null, "Processo cancelado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
 
                 btnAtivar.setText("Ativar");
-
+                
+                comboBoxOpcao.setEnabled(true);
+                
+                dateTimePicker.setEnabled(true);
+                
                 processoAtivado = false;
             }
             
@@ -242,23 +254,43 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void mudarTemaWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaWindows
-        Tema.mudarTema("com.sun.java.swing.plaf.windows.WindowsLookAndFeel", this);
+        try {
+            Tema.mudar(Tema.WINDOWS, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_mudarTemaWindows
 
     private void mudarTemaMetal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaMetal
-        Tema.mudarTema("javax.swing.plaf.metal.MetalLookAndFeel", this);
+        try {
+            Tema.mudar(Tema.METAL, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_mudarTemaMetal
 
     private void mudarTemaNimbus(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaNimbus
-        Tema.mudarTema("javax.swing.plaf.nimbus.NimbusLookAndFeel", this);
+        try {
+            Tema.mudar(Tema.NIMBUS, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_mudarTemaNimbus
 
     private void mudarTemaFlatLafLight(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafLight
-        Tema.mudarTema("com.formdev.flatlaf.FlatLightLaf", this);
+        try {
+            Tema.mudar(Tema.FLATLAF_LIGHT, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_mudarTemaFlatLafLight
 
     private void mudarTemaFlatLafDark(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafDark
-        Tema.mudarTema("com.formdev.flatlaf.FlatDarkLaf", this);
+        try {
+            Tema.mudar(Tema.FLATLAF_DARK, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_mudarTemaFlatLafDark
 
     private void abrirLinkGithub(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirLinkGithub
@@ -266,8 +298,8 @@ public class TelaPrincipal extends JFrame {
             if(Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(URI.create("https://github.com/Augusto-Calisto/shutdown-os"));
             }
-        } catch(IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch(IOException ioException) {
+            JOptionPane.showMessageDialog(null, ioException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_abrirLinkGithub
 
@@ -278,7 +310,6 @@ public class TelaPrincipal extends JFrame {
         
         trayIcon.displayMessage(NOME_DA_APLICACAO_DESKTOP, "Aplicativo minimizado", TrayIcon.MessageType.INFO);
     }//GEN-LAST:event_formWindowClosing
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtivar;
