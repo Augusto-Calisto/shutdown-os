@@ -7,10 +7,8 @@ import br.com.tech.view.component.Tema;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class RodarAplicacao {
     public static final Image ICONE_DA_APLICACAO_DESKTOP = Toolkit.getDefaultToolkit().getImage(RodarAplicacao.class.getResource("/image/icon.png"));
@@ -21,7 +19,7 @@ public class RodarAplicacao {
         try {
             TelaPrincipal tela = new TelaPrincipal();
 
-            Tema.mudar(Tema.WINDOWS, tela);
+            Tema.mudar(Tema.FLATLAF_LIGHT, tela);
         
             IconeBandeja.getSingleton(tela);
 

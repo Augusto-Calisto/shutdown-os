@@ -10,27 +10,29 @@ public enum Tema {
     METAL("javax.swing.plaf.metal.MetalLookAndFeel"),
     NIMBUS("javax.swing.plaf.nimbus.NimbusLookAndFeel"),
     FLATLAF_LIGHT("com.formdev.flatlaf.FlatLightLaf"),
-    FLATLAF_DARK("com.formdev.flatlaf.FlatDarkLaf");
+    FLATLAF_DARK("com.formdev.flatlaf.FlatDarkLaf"),
+    FLATLAF_INTELLIJ("com.formdev.flatlaf.FlatIntelliJLaf"),
+    FLATLAF_DARCULA("com.formdev.flatlaf.FlatDarculaLaf"),
+    FLATLAF_MAC_LIGHT("com.formdev.flatlaf.themes.FlatMacLightLaf"),
+    FLATLAF_MAC_DARK("com.formdev.flatlaf.themes.FlatMacDarkLaf");
     
-    private String packagePath;
+    private String caminhoPackageTema;
     
-    private Tema(String packagePath) {
-        this.packagePath = packagePath;
+    private Tema(String caminhoPackageTema) {
+        this.caminhoPackageTema = caminhoPackageTema;
     }
     
     public static void mudar(Tema tema, JFrame frame) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         if(frame != null) {
-            String caminhoPackageTema = tema.getPackagePath();
-
-            UIManager.setLookAndFeel(caminhoPackageTema);
+            UIManager.setLookAndFeel(tema.getCaminhoPackageTema());
 
             SwingUtilities.updateComponentTreeUI(frame);
             
             frame.pack();
         }
     }
-    
-    public String getPackagePath() {
-        return packagePath;
+
+    public String getCaminhoPackageTema() {
+        return caminhoPackageTema;
     }
 }

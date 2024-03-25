@@ -22,8 +22,6 @@ import java.util.Objects;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class TelaPrincipal extends JFrame {
@@ -61,6 +59,10 @@ public class TelaPrincipal extends JFrame {
         menuItemNimbus = new javax.swing.JMenuItem();
         menuItemFlatLafLight = new javax.swing.JMenuItem();
         menuItemFlatLafDark = new javax.swing.JMenuItem();
+        menuItemFlatLafDarcula = new javax.swing.JMenuItem();
+        menuItemFlatLafIntellij = new javax.swing.JMenuItem();
+        menuItemFlatLafMacLight = new javax.swing.JMenuItem();
+        menuItemFlatLafMacDark = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         menuItemGithub = new javax.swing.JMenuItem();
 
@@ -135,6 +137,38 @@ public class TelaPrincipal extends JFrame {
             }
         });
         menuTemas.add(menuItemFlatLafDark);
+
+        menuItemFlatLafDarcula.setText("FlatLaf Darcula");
+        menuItemFlatLafDarcula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mudarTemaFlatLafDarcula(evt);
+            }
+        });
+        menuTemas.add(menuItemFlatLafDarcula);
+
+        menuItemFlatLafIntellij.setText("FlatLaf IntelliJ");
+        menuItemFlatLafIntellij.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mudarTemaFlatLafIntellij(evt);
+            }
+        });
+        menuTemas.add(menuItemFlatLafIntellij);
+
+        menuItemFlatLafMacLight.setText("FlatLaf Mac Light");
+        menuItemFlatLafMacLight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mudarTemaFlatLafMacLight(evt);
+            }
+        });
+        menuTemas.add(menuItemFlatLafMacLight);
+
+        menuItemFlatLafMacDark.setText("FlatLaf Mac Dark");
+        menuItemFlatLafMacDark.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mudarTemaFlatLafMacDark(evt);
+            }
+        });
+        menuTemas.add(menuItemFlatLafMacDark);
 
         menuBar.add(menuTemas);
 
@@ -293,6 +327,38 @@ public class TelaPrincipal extends JFrame {
         }
     }//GEN-LAST:event_mudarTemaFlatLafDark
 
+    private void mudarTemaFlatLafMacDark(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafMacDark
+        try {
+            Tema.mudar(Tema.FLATLAF_MAC_DARK, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mudarTemaFlatLafMacDark
+
+    private void mudarTemaFlatLafIntellij(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafIntellij
+        try {
+            Tema.mudar(Tema.FLATLAF_INTELLIJ, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mudarTemaFlatLafIntellij
+
+    private void mudarTemaFlatLafMacLight(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafMacLight
+        try {
+            Tema.mudar(Tema.FLATLAF_MAC_LIGHT, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mudarTemaFlatLafMacLight
+
+    private void mudarTemaFlatLafDarcula(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaFlatLafDarcula
+        try {
+            Tema.mudar(Tema.FLATLAF_DARCULA, this);
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mudarTemaFlatLafDarcula
+
     private void abrirLinkGithub(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirLinkGithub
         try {
             if(Desktop.isDesktopSupported()) {
@@ -320,8 +386,12 @@ public class TelaPrincipal extends JFrame {
     private javax.swing.JSeparator linhaHorizontal;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuItemFlatLafDarcula;
     private javax.swing.JMenuItem menuItemFlatLafDark;
+    private javax.swing.JMenuItem menuItemFlatLafIntellij;
     private javax.swing.JMenuItem menuItemFlatLafLight;
+    private javax.swing.JMenuItem menuItemFlatLafMacDark;
+    private javax.swing.JMenuItem menuItemFlatLafMacLight;
     private javax.swing.JMenuItem menuItemGithub;
     private javax.swing.JMenuItem menuItemMetal;
     private javax.swing.JMenuItem menuItemNimbus;
