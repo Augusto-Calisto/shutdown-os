@@ -49,7 +49,7 @@ public class IconeBandeja {
         try {
             PopupMenu popMenu = new PopupMenu();
 
-            MenuItem menuTraySair = new MenuItem("Fechar Aplicativo");
+            MenuItem menuTraySair = new MenuItem("Fechar");
 
             menuTraySair.addActionListener(new ActionListener() {
                 @Override
@@ -75,24 +75,8 @@ public class IconeBandeja {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(tela.isProcessoAtivado()) {
-                        LocalDateTime dataHoraAcao = tela.getDateTimePicker().getDateTimeStrict();
+                        String mensagemPeriodoFalta = buscarTextoQuantidadeTempoRestante();
 
-                        LocalDateTime agora = LocalDateTime.now();
-
-                        Duration duracao = Duration.between(agora, dataHoraAcao);
-
-                        long dias = duracao.toDays();
-
-                        duracao = duracao.minusDays(dias);
-
-                        long horas = duracao.toHours();
-
-                        duracao = duracao.minusHours(horas);
-
-                        long minutos = duracao.toMinutes();
-                        
-                        String mensagemPeriodoFalta = "Falta(m) " + dias + " dia(s), " + horas + " hora(s) e " + minutos + " minuto(s)";
-                        
                         trayIcon.displayMessage(NOME_DA_APLICACAO_DESKTOP, mensagemPeriodoFalta, TrayIcon.MessageType.INFO); // Notificação do Sistema Operacional
                     }
 
@@ -107,23 +91,7 @@ public class IconeBandeja {
                 @Override
                 public void mouseMoved(MouseEvent e) {
                     if(tela.isProcessoAtivado()) {
-                        LocalDateTime dataHoraAcao = tela.getDateTimePicker().getDateTimeStrict();
-
-                        LocalDateTime agora = LocalDateTime.now();
-
-                        Duration duracao = Duration.between(agora, dataHoraAcao);
-
-                        long dias = duracao.toDays();
-
-                        duracao = duracao.minusDays(dias);
-
-                        long horas = duracao.toHours();
-
-                        duracao = duracao.minusHours(horas);
-
-                        long minutos = duracao.toMinutes();
-                        
-                        String mensagemPeriodoFalta = "Falta(m) " + dias + " dia(s), " + horas + " hora(s) e " + minutos + " minuto(s)";
+                        String mensagemPeriodoFalta = buscarTextoQuantidadeTempoRestante();
 
                         trayIcon.setToolTip(mensagemPeriodoFalta);
                     }
@@ -137,6 +105,54 @@ public class IconeBandeja {
         } catch(AWTException awtException) {
             System.out.println(awtException.getMessage()); 
         }
+    }
+    
+    private String buscarTextoQuantidadeTempoRestante() {
+        LocalDateTime dataHoraAcao = tela.getDateTimePicker().getDateTimeStrict();
+
+        LocalDateTime agora = LocalDateTime.now();
+
+        Duration duracao = Duration.between(agora, dataHoraAcao);
+
+        long dias = duracao.toDays();
+
+        duracao = duracao.minusDays(dias);
+
+        long horas = duracao.toHours();
+
+        duracao = duracao.minusHours(horas);
+
+        long minutos = duracao.toMinutes();
+        
+        duracao = duracao.minusMinutes(minutos);
+        
+        long segundos = duracao.toSeconds();
+        
+        minutos = minutos + segundos / 60;
+        
+        String opcaoSelecionada = tela.getComboBoxOpcao().getSelectedItem().toString();
+        
+        String mensagemPeriodoFalta = "Falta(m)";
+
+        if(dias > 0) {
+            mensagemPeriodoFalta += (dias + " dia(s)");
+        } 
+        
+        if(horas > 0) {
+            mensagemPeriodoFalta += (horas + " hora(s)");
+        } 
+        
+        if(minutos > 0) {
+            mensagemPeriodoFalta += (minutos + " minuto(s)");
+        } 
+        
+        if(segundos > 0) {
+            mensagemPeriodoFalta += (segundos + " segundo(s)");
+        }
+        
+        mensagemPeriodoFalta += (" para " + opcaoSelecionada);
+        
+        return mensagemPeriodoFalta;
     }
 
     public TrayIcon getTrayIcon() {
