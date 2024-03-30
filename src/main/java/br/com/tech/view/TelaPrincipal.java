@@ -20,6 +20,7 @@ import java.time.temporal.ChronoUnit;
 
 import java.util.Objects;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -27,6 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class TelaPrincipal extends JFrame {
     private PromptCommand promptCommand;
     private boolean processoAtivado;
+    private long pidProcesso;
 
     /**
      * Creates new form TelaPrincipal
@@ -241,15 +243,15 @@ public class TelaPrincipal extends JFrame {
                 long diferencaEmSegundos = ChronoUnit.SECONDS.between(dataHoraAtual, dataHoraEvento);
             
                 if("DESLIGAR".equalsIgnoreCase(opcao)) {
-                    promptCommand.desligarComputador(diferencaEmSegundos);
+                    pidProcesso = promptCommand.desligarComputador(diferencaEmSegundos);
                 } 
                 
                 if("REINICIAR".equalsIgnoreCase(opcao)) {
-                    promptCommand.reiniciarComputador(diferencaEmSegundos);
+                    pidProcesso = promptCommand.reiniciarComputador(diferencaEmSegundos);
                 }
                 
                 if("HIBERNAR".equalsIgnoreCase(opcao)) {
-                    promptCommand.hibernarComputador(diferencaEmSegundos);
+                    pidProcesso = promptCommand.hibernarComputador(diferencaEmSegundos);
                 }
                 
                 JOptionPane.showMessageDialog(null, "O processo de " + opcao.toUpperCase() + " foi ativado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
@@ -261,9 +263,9 @@ public class TelaPrincipal extends JFrame {
                 dateTimePicker.setEnabled(false);
 
                 processoAtivado = true;
-                
+                                
             } else {
-                promptCommand.cancelarProcesso();
+                promptCommand.cancelarProcesso(pidProcesso);
                 
                 JOptionPane.showMessageDialog(null, "Processo cancelado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
 
@@ -284,7 +286,7 @@ public class TelaPrincipal extends JFrame {
         
         } catch(NullPointerException nullPointerException) {
             JOptionPane.showMessageDialog(null, nullPointerException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
-        }
+        } 
     }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void mudarTemaWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaWindows
@@ -421,5 +423,21 @@ public class TelaPrincipal extends JFrame {
 
     public void setDateTimePicker(DateTimePicker dateTimePicker) {
         this.dateTimePicker = dateTimePicker;
+    }
+
+    public JComboBox<String> getComboBoxOpcao() {
+        return comboBoxOpcao;
+    }
+
+    public void setComboBoxOpcao(JComboBox<String> comboBoxOpcao) {
+        this.comboBoxOpcao = comboBoxOpcao;
+    }
+
+    public long getPidProcesso() {
+        return pidProcesso;
+    }
+
+    public void setPidProcesso(long pidProcesso) {
+        this.pidProcesso = pidProcesso;
     }
 }

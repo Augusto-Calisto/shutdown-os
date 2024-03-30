@@ -56,7 +56,8 @@ public class IconeBandeja {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         if(tela.isProcessoAtivado()) {
-                            tela.getPromptCommand().cancelarProcesso();
+                            long pid = tela.getPidProcesso();
+                            tela.getPromptCommand().cancelarProcesso(pid);
                         }
 
                         System.exit(0);

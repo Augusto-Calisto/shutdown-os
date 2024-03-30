@@ -19,7 +19,7 @@ public class PromptCommand {
 	
     public long desligarComputador(long tempo) throws IOException {
         if(tempo < 0) {
-            throw new IllegalArgumentException("A data/hora passada é menor que o horário atual do computador");
+            throw new IllegalArgumentException("A data e/ou hora passada é menor que o horário atual do computador");
         }
 
         return sistemaOperacional.desligar(tempo);
@@ -27,19 +27,19 @@ public class PromptCommand {
     
     public long reiniciarComputador(long tempo) throws IOException {
         if(tempo < 0) {
-            throw new IllegalArgumentException("A data/hora passada é menor que o horário atual do computador");
+            throw new IllegalArgumentException("A data e/ou hora passada é menor que o horário atual do computador");
         }
 
         return sistemaOperacional.reiniciar(tempo);
     }
 
-    public long cancelarProcesso() throws IOException {
-        return sistemaOperacional.cancelar();
+    public void cancelarProcesso(long pidProcesso) throws IOException {
+        sistemaOperacional.cancelar(pidProcesso);
     }
 
     public long hibernarComputador(long tempo) throws IOException {
         if(tempo < 0) {
-            throw new IllegalArgumentException("A data/hora passada é menor que o horário atual do computador");
+            throw new IllegalArgumentException("A data e/ou hora passada é menor que o horário atual do computador");
         }
         
         return sistemaOperacional.hibernar(tempo);
