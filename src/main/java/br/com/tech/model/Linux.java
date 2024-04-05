@@ -14,10 +14,10 @@ public class Linux implements ISistemaOperacional {
     }
 
     @Override
-    public long cancelar() throws IOException {
-        Process process = Runtime.getRuntime().exec("sudo shutdown -c");
+    public void cancelar(long pid) throws IOException {
+        Runtime.getRuntime().exec("sudo kill -9 " + pid);
 
-        return process.pid();
+        Runtime.getRuntime().exec("sudo shutdown -c");
     }
 
     @Override
@@ -31,8 +31,8 @@ public class Linux implements ISistemaOperacional {
 
     @Override
     public long hibernar(long segundos) throws IOException {
-        Process process = Runtime.getRuntime().exec("sudo systemctl hibernate");
-
+        Process process = Runtime.getRuntime().exec("sudo sleep " + segundos + " && systemctl hibernate");
+                
         return process.pid();
     }
 }
