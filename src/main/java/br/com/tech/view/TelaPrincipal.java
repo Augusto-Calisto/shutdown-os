@@ -82,7 +82,7 @@ public class TelaPrincipal extends JFrame {
         lblSelecionarOpcao.setText("Selecione uma opção:");
         lblSelecionarOpcao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        comboBoxOpcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desligar", "Reiniciar", "Suspender", "Hibernar" }));
+        comboBoxOpcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desligar", "Reiniciar", "Hibernar" }));
         comboBoxOpcao.setActionCommand("");
 
         dateTimePicker.getTimePicker().getSettings().setDisplaySpinnerButtons(true);
@@ -286,7 +286,7 @@ public class TelaPrincipal extends JFrame {
         
         } catch(NullPointerException nullPointerException) {
             JOptionPane.showMessageDialog(null, nullPointerException.getMessage(), NOME_DA_APLICACAO_DESKTOP, JOptionPane.ERROR_MESSAGE);
-        } 
+        }
     }//GEN-LAST:event_btnAtivarActionPerformed
 
     private void mudarTemaWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mudarTemaWindows
