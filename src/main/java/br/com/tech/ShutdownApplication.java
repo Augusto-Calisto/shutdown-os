@@ -18,9 +18,9 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class RodarAplicacao {
-    public static final Image ICONE_DA_APLICACAO_DESKTOP = Toolkit.getDefaultToolkit().getImage(RodarAplicacao.class.getResource("/image/icon.png"));
-    public static final Image ICONE_BANDEJA = Toolkit.getDefaultToolkit().getImage(RodarAplicacao.class.getResource("/image/icon_tray.png"));
+public class ShutdownApplication {
+    public static final Image ICONE_DA_APLICACAO_DESKTOP = Toolkit.getDefaultToolkit().getImage(ShutdownApplication.class.getResource("/image/icon.png"));
+    public static final Image ICONE_BANDEJA = Toolkit.getDefaultToolkit().getImage(ShutdownApplication.class.getResource("/image/icon_tray.png"));
     public static final String NOME_DA_APLICACAO_DESKTOP = "ShutdownOS";
     
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class RodarAplicacao {
             if(!isRunningApp()) {
                 TelaPrincipal tela = new TelaPrincipal();
 
-                Tema.mudar(Tema.FLATLAF_LIGHT, tela);
+                Tema.mudar(Tema.NIMBUS, tela);
                 
                 IconeBandeja.getSingleton(tela);
 
@@ -75,7 +75,7 @@ public class RodarAplicacao {
 
         int quantidadeDeApps = 0;
         
-        String classeComPacote = RodarAplicacao.class.getName();
+        String classeComPacote = ShutdownApplication.class.getName();
         
         while((linha = subProcessInputReader.readLine()) != null) {
             if(linha.contains(classeComPacote) || linha.contains("shutdownOS.jar")) {
@@ -96,6 +96,8 @@ public class RodarAplicacao {
         String os = System.getProperty("os.name").toLowerCase();
         
         List<String> commandList = new ArrayList<>();
+        
+        System.out.println("Sistema operacional: " + os);
 
         if(os.contains("win")) { // Windows
             commandList.add("cmd");

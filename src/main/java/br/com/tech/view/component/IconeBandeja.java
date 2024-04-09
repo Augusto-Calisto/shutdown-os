@@ -1,7 +1,7 @@
 package br.com.tech.view.component;
 
-import static br.com.tech.RodarAplicacao.ICONE_BANDEJA;
-import static br.com.tech.RodarAplicacao.NOME_DA_APLICACAO_DESKTOP;
+import static br.com.tech.ShutdownApplication.ICONE_BANDEJA;
+import static br.com.tech.ShutdownApplication.NOME_DA_APLICACAO_DESKTOP;
 
 import br.com.tech.view.TelaPrincipal;
 

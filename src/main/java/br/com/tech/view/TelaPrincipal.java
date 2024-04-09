@@ -1,6 +1,6 @@
 package br.com.tech.view;
 
-import static br.com.tech.RodarAplicacao.NOME_DA_APLICACAO_DESKTOP;
+import static br.com.tech.ShutdownApplication.NOME_DA_APLICACAO_DESKTOP;
 
 import br.com.tech.model.PromptCommand;
 import br.com.tech.view.component.IconeBandeja;

@@ -29,7 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <exec.mainClass>br.com.tech.RodarAplicacao</exec.mainClass>
+        <exec.mainClass>br.com.tech.ShutdownApplication</exec.mainClass>
     </properties>
     
     <build>
@@ -54,12 +54,12 @@
                 <artifactId>maven-jar-plugin</artifactId>  
                 <version>3.1.0</version>  
                 <configuration>
-                    <finalName>ShutdownOS</finalName>
+                    <finalName>shutdownOS</finalName>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix> <!-- No classpathPrefix especifica que todas as dependências devem estar localizadas na pasta "lib" relativa ao arquivo -->
-                            <mainClass>br.com.tech.RodarAplicacao</mainClass> <!-- Esse problema (Unable to execute jar- file: "no main manifest attribute.") pode ocorrer devido à entrada ausente de Main-Class no arquivo MANIFEST.MF -->
+                            <mainClass>br.com.tech.ShutdownApplication</mainClass> <!-- Esse problema (Unable to execute jar- file: "no main manifest attribute.") pode ocorrer devido à entrada ausente de Main-Class no arquivo MANIFEST.MF -->
                         </manifest>
                     </archive>
                 </configuration>
