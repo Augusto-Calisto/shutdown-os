@@ -19,13 +19,17 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class TelaPrincipal extends JFrame {
+public class TelaPrincipal extends JFrame { 
+    private static final Timer timer = new Timer();
+        
     private PromptCommand promptCommand;
     private boolean processoAtivado;
     private long pidProcesso;
@@ -227,6 +231,7 @@ public class TelaPrincipal extends JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtivarActionPerformed
@@ -253,7 +258,7 @@ public class TelaPrincipal extends JFrame {
                 if("HIBERNAR".equalsIgnoreCase(opcao)) {
                     pidProcesso = promptCommand.hibernarComputador(diferencaEmSegundos);
                 }
-                
+                                
                 JOptionPane.showMessageDialog(null, "O processo de " + opcao.toUpperCase() + " foi ativado", NOME_DA_APLICACAO_DESKTOP, JOptionPane.INFORMATION_MESSAGE);
               
                 btnAtivar.setText("Cancelar");
@@ -264,6 +269,24 @@ public class TelaPrincipal extends JFrame {
 
                 processoAtivado = true;
                                 
+                long delayMilisegundos = (diferencaEmSegundos - 2) * 1000;
+                
+                // Executa a task 2 segundos antes do comando
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {                        
+                        if(processoAtivado) {
+                            btnAtivar.setText("Ativar");
+
+                            comboBoxOpcao.setEnabled(true);
+
+                            dateTimePicker.setEnabled(true);
+
+                            processoAtivado = false;
+                        }
+                    }
+                }, delayMilisegundos);
+                                                
             } else {
                 promptCommand.cancelarProcesso(pidProcesso);
                 

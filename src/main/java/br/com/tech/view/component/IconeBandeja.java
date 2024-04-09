@@ -48,7 +48,7 @@ public class IconeBandeja {
     private void criar() {
         try {
             PopupMenu popMenu = new PopupMenu();
-
+            
             MenuItem menuTraySair = new MenuItem("Fechar");
 
             menuTraySair.addActionListener(new ActionListener() {
@@ -93,8 +93,9 @@ public class IconeBandeja {
                 public void mouseMoved(MouseEvent e) {
                     if(tela.isProcessoAtivado()) {
                         String mensagemPeriodoFalta = buscarTextoQuantidadeTempoRestante();
-
                         trayIcon.setToolTip(mensagemPeriodoFalta);
+                    } else {
+                        trayIcon.setToolTip(NOME_DA_APLICACAO_DESKTOP);
                     }
                 }
             });
@@ -133,18 +134,18 @@ public class IconeBandeja {
         
         String opcaoSelecionada = tela.getComboBoxOpcao().getSelectedItem().toString();
         
-        String mensagemPeriodoFalta = "Falta(m)";
+        String mensagemPeriodoFalta = "Falta(m) ";
 
         if(dias > 0) {
-            mensagemPeriodoFalta += (dias + " dia(s)");
+            mensagemPeriodoFalta += (dias + " dia(s) ");
         } 
         
         if(horas > 0) {
-            mensagemPeriodoFalta += (horas + " hora(s)");
+            mensagemPeriodoFalta += (horas + " hora(s) ");
         } 
         
         if(minutos > 0) {
-            mensagemPeriodoFalta += (minutos + " minuto(s)");
+            mensagemPeriodoFalta += (minutos + " minuto(s) ");
         } 
         
         if(segundos > 0) {
